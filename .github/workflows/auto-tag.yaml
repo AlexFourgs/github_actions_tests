@@ -16,3 +16,10 @@ jobs:
         id: get_dipy_version
       - name: print dipy version
         run: echo "${{ steps.get_dipy_version.outputs.dipy_version }}" 
+      - name: tag repository
+        id: tag
+        uses: mathieudutour/github-tag-action@v6.0
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          custom_tag: ${{ steps.get_dipy_version.outputs.dipy_version }}"
+          tag_prefix: "v"
