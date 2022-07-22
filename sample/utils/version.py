@@ -10,7 +10,7 @@ import argparse
 import sys
 from distutils import version
 
-__version__ = '6.30.0'
+__version__ = '6.30.1'
 
 
 def dipy(args):
