@@ -1,8 +1,9 @@
 name: auto tag on merge pull request
-on: [push]
-#  push:
-#    branches:
-#      - master
+on:
+  push:
+    branches:
+      - master
+      - main
 jobs:
   auto-tag:
     runs-on: ubuntu-latest
@@ -11,6 +12,15 @@ jobs:
       - uses: actions/setup-python@v4
         with:
           python-version: '3.x'
-          script: |
-            import sample.utils.version
-            print(__version__)
+      - name: call dipy
+        run: python sample/utils/version.py
+        id: get_dipy_version
+      - name: print dipy version
+        run: echo "${{ steps.get_dipy_version.outputs.dipy_version }}" 
+      - name: tag repository
+        id: tag
+        uses: mathieudutour/github-tag-action@v6.0
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          custom_tag: ${{ steps.get_dipy_version.outputs.dipy_version }}
+          tag_prefix: "v"

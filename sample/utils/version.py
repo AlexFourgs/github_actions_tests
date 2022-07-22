@@ -10,7 +10,7 @@ import argparse
 import sys
 from distutils import version
 
-__version__ = '6.30.0'
+__version__ = '6.30.1'
 
 
 def dipy(args):
@@ -41,3 +41,18 @@ def dipy(args):
                                                       min_version_required))
     else:
         print(__version__)
+
+
+
+def dipy_version_github_action():
+	"""Print Dipy version with format for Github Actions
+
+	See https://docs.github.com/en/actions/using-workflows/workflow-commands-for-github-actions#setting-an-output-parameter
+	for more details.
+	"""
+	print(f'::set-output name=dipy_version::{__version__}')
+
+
+# used by Github actions
+if __name__ == '__main__':
+    dipy_version_github_action()
