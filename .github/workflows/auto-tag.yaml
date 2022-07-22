@@ -1,0 +1,16 @@
+name: auto tag on merge pull request
+on:
+  push:
+    branches:
+      - master
+jobs:
+  auto-tag:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
+          script: |
+            import sample.utils.version
+            print(__version__)
