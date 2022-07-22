@@ -12,15 +12,19 @@ jobs:
       - uses: actions/setup-python@v4
         with:
           python-version: '3.x'
-      - name: call dipy
+      - name: Get Dipy version
         run: python sample/utils/version.py
         id: get_dipy_version
-      - name: print dipy version
-        run: echo "${{ steps.get_dipy_version.outputs.dipy_version }}" 
-      - name: tag repository
+      - name: Create tag
         id: tag
         uses: mathieudutour/github-tag-action@v6.0
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           custom_tag: ${{ steps.get_dipy_version.outputs.dipy_version }}
           tag_prefix: "v"
+      - name: Create a GitHub release
+        uses: ncipollo/release-action@v1
+        with:
+          tag: ${{ steps.tag.outputs.new_tag }}
+          name: Release ${{ steps.tag.outputs.new_tag }}
+          generateReleaseNotes: true
