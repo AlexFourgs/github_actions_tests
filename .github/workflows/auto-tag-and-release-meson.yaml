@@ -12,6 +12,6 @@ jobs:
         with:
           python-version: '3.x'
       - run: pip install meson ninja
-      - run: mesin setup builddir/
+      - run: meson setup builddir/
       - uses: sergeysova/jq-action@v2
       - run: meson introspect --projectinfo builddir | jq -r '.version'
