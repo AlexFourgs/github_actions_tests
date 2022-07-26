@@ -27,6 +27,7 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           custom_tag: ${{ steps.get_project_version.outputs.version }}
+          tag_prefix: ""
       - name: Create a GitHub release
         uses: ncipollo/release-action@v1
         with:
