@@ -21,3 +21,4 @@ jobs:
             meson introspect --projectinfo builddir |
             jq -r '.version'
           )"
+      - run: echo "${{ steps.get_project_version.outputs.version }}"
