@@ -1,0 +1,17 @@
+name: auto tag and release on merge pull request
+on:
+  push:
+    branches:
+      - main
+jobs:
+  tag-and-release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
+      - run: pip install meson ninja
+      - run: mesin setup builddir/
+      - uses: sergeysova/jq-action@v2
+      - run: meson introspect --projectinfo builddir | jq -r '.version'
