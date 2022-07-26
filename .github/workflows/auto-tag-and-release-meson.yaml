@@ -13,9 +13,9 @@ jobs:
           python-version: '3.x'
       - run: pip install meson ninja
       - run: meson setup builddir/
+      - uses: sergeysova/jq-action@v2
       - name:
         id: get_project_version
-        uses: sergeysova/jq-action@v2
         run: >-
           echo "::set-output name=version::$(
             meson introspect --projectinfo builddir |
