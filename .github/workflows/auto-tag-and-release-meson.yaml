@@ -19,7 +19,7 @@ jobs:
         run: pip install meson ninja && sudo apt-get install -y check
 
       - name: Setup project
-      - run: meson setup builddir/
+        run: meson setup builddir/
 
       - name: Get project version
         id: get_project_version
